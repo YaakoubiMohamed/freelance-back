@@ -132,13 +132,13 @@ public class UserController {
     
     
 	@PostMapping("/forgot-password")
-	public Email forgotPassword(@RequestParam String email) throws AddressException, MessagingException, IOException  {
+	public String forgotPassword(@RequestParam String email) throws AddressException, MessagingException, IOException  {
 
 		String response = userService.forgotPassword(email);
 
 		if (!response.startsWith("Invalid")) {
 			
-			response = "http://localhost:8080/reset-password?token=" + response;
+			//response = "http://localhost:4200/reset-password?token=" + response;
 			
 			emails.setEmail("mohamedyaakoubiweb@gmail.com");
 			emails.setSubject("reset link");
@@ -147,7 +147,7 @@ public class UserController {
 			
 		}
 		
-		return emails;
+		return response;
 	}
 
 	@PutMapping("/reset-password")
